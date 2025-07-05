@@ -31,11 +31,6 @@ error "A fatal error occurred"
 
 ```
 ## 3. Formatting
-**bold** → bold text
-
-__underline__ → underlined text
-
-### Functions
 
 | Function            | Description                                               |
 |---------------------|-----------------------------------------------------------|
