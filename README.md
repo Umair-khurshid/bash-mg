@@ -29,13 +29,12 @@ warning "This is a warning"
 DEBUG=1
 debug "Debugging is enabled"
 error "A fatal error occurred"
-
-## 2.2. Example: Silent Mode
+```
+## 2.2 Example: Silent Mode
 
 ```bash
 SILENT=1
 msg "green" "This message will not appear on terminal"
-
 ```
 ## 3. Formatting
 
