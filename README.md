@@ -8,6 +8,7 @@ A simple, lightweight Bash library for printing styled and color-coded terminal 
 - Debug, warning, and error message helpers
 - Optional automatic exit on error
 - Easy to integrate into other scripts
+- **Silent mode** to suppress terminal output
 
 ## Usage
 
@@ -17,7 +18,7 @@ A simple, lightweight Bash library for printing styled and color-coded terminal 
 source /path/to/message.sh
 ```
 
-## 2. Example
+## 2.1 Example
 ```bash
 #!/bin/bash
 source ./message.sh
@@ -28,6 +29,12 @@ warning "This is a warning"
 DEBUG=1
 debug "Debugging is enabled"
 error "A fatal error occurred"
+
+## 2.2. Example: Silent Mode
+
+```bash
+SILENT=1
+msg "green" "This message will not appear on terminal"
 
 ```
 ## 3. Formatting
