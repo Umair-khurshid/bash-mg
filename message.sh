@@ -5,12 +5,13 @@
 #
 # Library for printing color-coded and formatted messages in Bash
 #
+# External library to display colored messages with optional silent mode
+#
 
 DEBUG=0
 EXIT_ON_ERROR=0
 ERROR_CODE=10
-
-DATE_FORMAT=""
+SILENT=0    # If set to 1, suppress terminal output
 
 msg () {
     declare -A attr
@@ -38,17 +39,18 @@ msg () {
         shift
     else
         if [[ $1 =~ ^[a-zA-Z]+$ ]]; then
-            printf "\e[33mWARNING: Unknown color '%s', using default.\e[0m\n" "$1"
+            [[ $SILENT -ne 1 ]] && printf "\e[33mWARNING: Unknown color '%s', using default.\e[0m\n" "$1"
         fi
         c="default"
     fi
 
     # format message
     local message=$(echo "$@" | sed -E "
-        s/\*\*([^\*\*]*)\*\*/\\${attr[bold]}\1\\${attr[r_bold]}/g;
-        s/__([^__]*)__/\\${attr[underl]}\1\\${attr[r_underl]}/g
+        s/\*\*([^\*]*)\*\*/\\${attr[bold]}\1\\${attr[r_bold]}/g;
+        s/__([^_]*)__/${attr[underl]}\1${attr[r_underl]}/g
     ")
-    printf "${attr[$c]}${message}${attr[reset]}"
+
+    [[ $SILENT -ne 1 ]] && printf "${attr[$c]}${message}${attr[reset]}"
 }
 
 error () {
@@ -62,9 +64,7 @@ warning () {
 }
 
 debug () {
-    if [ $DEBUG -eq 1 ]; then
-        local message=$(echo "$@")
-        msg "cyan" "DEBUG : ${message}\n"
+    if [[ $DEBUG -eq 1 ]]; then
+        msg "cyan" "DEBUG : $@\n"
     fi
 }
-
